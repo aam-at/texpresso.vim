@@ -11,9 +11,6 @@ M.texpresso_path = "texpresso"
 -- E.g. require('texpresso').logger = foo
 M.logger = nil
 
--- Cache last arguments passed to TeXpresso
-M.last_args = {}
-
 -- Debug printing function
 -- It uses vim.inspect to pretty-print and vim.schedule
 -- to delay printing when vim is textlocked.
@@ -294,9 +291,7 @@ function M.launch(args)
   cmd = {M.texpresso_path, "-json", "-lines"}
 
   if #args == 0 then
-    args = M.last_args
-  else
-    M.last_args = args
+	args = { vim.b.vimtex.tex }
   end
   if #args == 0 then
     print("No root file has been specified, use e.g. :TeXpresso main.tex")
